@@ -490,8 +490,7 @@ public struct LogConsoleView: View {
         guard !text.isEmpty else { return }
 #if canImport(UIKit) && !os(tvOS)
         UIPasteboard.general.string = text
-#endif
-#if canImport(AppKit)
+#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(text, forType: .string)
